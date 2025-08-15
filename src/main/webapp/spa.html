@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>SPAサンプル</title>
+    <style>
+      body { font-family: system-ui, sans-serif; }
+      main { max-width: 520px; margin: 2rem auto; }
+      .card { border: 1px solid #ddd; padding: 1rem; border-radius: 8px; }
+      .out { margin-top: 1rem; font-weight: bold; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>SPA: お名前を入力してください</h1>
+      <div class="card">
+        <form id="form">
+          <input type="text" name="name" placeholder="名前を入力してください" required>
+          <button type="submit">送信</button>
+        </form>
+        <div id="out" class="out"></div>
+      </div>
+    </main>
+
+    <script>
+      const form = document.getElementById( 'form' );
+      const out  = document.getElementById( 'out' );
+
+      form.addEventListener( 'submit', async(e) => {
+        e.preventDefault();                         // 1) 画面遷移を止める
+        const fd = new FormData( form );
+        const body = new URLSearchParams( fd );       // 2) x-www-form-urlencoded に整形
+
+        try {
+          const res = await fetch('api/echo', {     // 3) 同一アプリ内のAPIへPOST
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body
+          });
+          if ( !res.ok ) throw new Error( 'HTTP ' + res.status );
+          const data = await res.json();            // 4) JSONを受け取る
+          out.textContent = data.message;           // 5) DOMを書き換えて表示
+        } catch(err) {
+          out.textContent = 'エラー: ' + err.message;
+        }
+      });
+    </script>
+  </body>
+</html>

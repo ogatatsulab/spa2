@@ -1,0 +1,8 @@
+| 操作				| HTTPメソッド	| URIパターン例		|
+| --------	| --------		| --------			|
+| 全件取得		| `GET`				| `/users`			|
+| 単一取得		| `GET`				| `/users/{id}`	|
+| 新規作成		| `POST`			| `/users`			|
+| 更新（全体	| `PUT`				| `/users/{id}`	|
+| 更新（一部）| `PATCH`			| `/users/{id}`	|
+| 削除				| `DELETE`		| `/users/{id}`	|
