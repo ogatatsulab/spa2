@@ -29,7 +29,7 @@
       form.addEventListener( 'submit', async(e) => {
         e.preventDefault();                         // 1) 画面遷移を止める
         const fd = new FormData( form );
-        const body = new URLSearchParams( fd );       // 2) x-www-form-urlencoded に整形
+        const body = new URLSearchParams( fd );     // 2) x-www-form-urlencoded に整形
 
         try {
           const res = await fetch('api/echo', {     // 3) 同一アプリ内のAPIへPOST
